@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./Home.css";
+import "../css/Home.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
-export default function Home() {
-  var picLink = "https://cdn-icons-png.flaticon.com/128/3177/3177440.png";
+export default function MyFolliwngPost() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [comment, setComment] = useState("");
@@ -23,7 +22,7 @@ export default function Home() {
     }
 
     // Fetching all posts
-    fetch("http://localhost:5000/allposts", {
+    fetch("http://localhost:5000/myfollwingpost", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
@@ -60,7 +59,7 @@ export default function Home() {
       .then((res) => res.json())
       .then((result) => {
         const newData = data.map((posts) => {
-          if (posts._id === result._id) {
+          if (posts._id == result._id) {
             return result;
           } else {
             return posts;
@@ -84,7 +83,7 @@ export default function Home() {
       .then((res) => res.json())
       .then((result) => {
         const newData = data.map((posts) => {
-          if (posts._id === result._id) {
+          if (posts._id == result._id) {
             return result;
           } else {
             return posts;
@@ -111,7 +110,7 @@ export default function Home() {
       .then((res) => res.json())
       .then((result) => {
         const newData = data.map((posts) => {
-          if (posts._id === result._id) {
+          if (posts._id == result._id) {
             return result;
           } else {
             return posts;
@@ -129,12 +128,12 @@ export default function Home() {
       {/* card */}
       {data.map((posts) => {
         return (
-          <div className="card" key={posts._id}>
+          <div className="card">
             {/* card header */}
             <div className="card-header">
               <div className="card-pic">
                 <img
-                  src={posts.postedBy.Photo ? posts.postedBy.Photo : picLink}
+                  src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGVyc29ufGVufDB8MnwwfHw%3D&auto=format&fit=crop&w=500&q=60"
                   alt=""
                 />
               </div>
@@ -224,8 +223,7 @@ export default function Home() {
               >
                 <div className="card-pic">
                   <img
-                    src="https://plus.unsplash.com/premium_photo-1690086519096-0594592709d3?q=80&w=1771&auto=
-                    format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGVyc29ufGVufDB8MnwwfHw%3D&auto=format&fit=crop&w=500&q=60"
                     alt=""
                   />
                 </div>
@@ -239,7 +237,7 @@ export default function Home() {
               >
                 {item.comments.map((comment) => {
                   return (
-                    <p className="comm" key={comment._id}>
+                    <p className="comm">
                       <span
                         className="commenter"
                         style={{ fontWeight: "bolder" }}
