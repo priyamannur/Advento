@@ -1,8 +1,6 @@
-import logo from "./logo.svg";
-import React, { createContext, useState } from "react";
+
 import "./App.css";
 import Navbar from "./components/Navbar";
-
 import React,{createContext,useState} from "react";
 
 import './App.css';
@@ -47,6 +45,7 @@ function App() {
       <Route path="/chat" element={<Chat/>} />
       <Route path="/createPost" element={<Createpost />}></Route>
       <Route path="/profile/:userid" element={<UserProfie />}></Route>
+      <Route path="/followingpost" element={<MyFolliwngPost />}></Route>
       </Routes>
 
     
