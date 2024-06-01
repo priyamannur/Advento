@@ -1,0 +1,162 @@
+/* Chat.css */
+
+body, html, #root, .Chat {
+    height: 100%;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .Chat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f4f4;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  h1 {
+    color: #333;
+  }
+  
+  .main-container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    height: calc(100% - 60px); /* Adjust based on your padding and margins */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .chat-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+  }
+  
+  .chat-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+  }
+  
+  .chat-message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .chat-message.user {
+    background-color: #e1f5fe;
+    align-self: flex-start;
+  }
+  
+  .chat-message.server {
+    background-color: #ffe0b2;
+    align-self: flex-end;
+  }
+  
+  .input-container {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+  }
+  
+  input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-right: 10px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .sidebar {
+    width: 300px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .top {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .newChat, .recentChats {
+    margin-top: 20px;
+  }
+  
+  .newChat p, .recentEntry p, .bottemItem.Help p {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .newChat p:hover, .recentEntry p:hover, .bottemItem.Help p:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .recentTitle {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .recentEntry {
+    margin-top: 10px;
+  }
+  
+  .bottom {
+    margin-top: auto;
+  }
+  
+  .bottemItem.Help {
+    margin-top: 20px;
+  }
+  
+  /* Icon styles */
+  .sidebar .top .IoIosMenu, 
+  .sidebar .newChat .RiChatNewFill, 
+  .sidebar .recentEntry .CiChat1, 
+  .sidebar .bottom .IoMdHelp {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+  
+  /* General icon styling */
+  .sidebar svg {
+    font-size: 24px;
+    margin-right: 10px;
+    color: #555;
+  }
+  
+  /* Hover effect for icons */
+  .sidebar p:hover svg {
+    color: #333;
+  }
+  

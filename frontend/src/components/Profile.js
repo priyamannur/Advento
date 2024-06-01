@@ -67,7 +67,6 @@ export default function Profile() {
       </div>
 <hr style={{
   width:"90%",
-  margin:"auto",
   opacity:"0.8",
   margin:"25px auto"
   
@@ -75,7 +74,7 @@ export default function Profile() {
   {/*Gallery */}
   <div className='gallery'>
     {pic.map((pics)=>{
-      return <img key={pics._id} src={pics.photo} 
+      return <img key={pics._id} src={pics.photo} alt=""
       onClick={()=>{
         toggleDetails(pics)
       }

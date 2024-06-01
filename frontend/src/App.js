@@ -1,5 +1,4 @@
 
-import logo from './logo.svg';
 import React,{createContext,useState} from "react";
 
 import './App.css';
@@ -13,7 +12,8 @@ import SignUp from './components/SignUp';
 import Createpost from './components/Createpost';
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import Mappp from './components/Mappp';
+import Chat from './components/Chat';
 import { LoginContext } from './context/LoginContext';
 import Modal from "./components/Modal";
 
@@ -36,6 +36,8 @@ function App() {
       <Route path="/signin" element={<SignIn />} /> 
       <Route path="/profile" element={<Profile />} />
       <Route path="/createPost" element={<Createpost/>} />
+      <Route path="/addpins" element={<Mappp/>} />
+      <Route path="/chat" element={<Chat/>} />
       </Routes>
 
     
