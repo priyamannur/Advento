@@ -9,9 +9,6 @@ const Sideb = ({ recentPrompts }) => {
     <div className="sidebar">
       <div className="top">
         <IoIosMenu />
-        <div className="newChat">
-          <button ><RiChatNewFill /> New Chat</button>
-        </div>
         <div className="recentChats">
           <p className="recentTitle">Recent</p>
           {recentPrompts.map((prompt, index) => (

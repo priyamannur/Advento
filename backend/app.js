@@ -17,6 +17,7 @@ app.use(express.json())
 app.use(require("./routes/auth"))
 app.use(require("./routes/createPost"))
 app.use(require("./routes/user"))
+app.use(require("./routes/place.js"))
 app.use("/addpins",pinRoute)
 app.use("/chat", chatRoute);
 mongoose.connect(mongoUrl);

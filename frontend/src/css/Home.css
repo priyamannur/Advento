@@ -1,130 +1,160 @@
+*{
+  box-sizing: border-box;
+}
+body {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .home {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
-  
-  .card {
-    max-width: 300px; /* Adjust as needed */
-    height: max-content;
-    margin: 15px; /* Adjust spacing between cards */
-    border: 1px solid rgb(173, 173, 173);
-    border-radius: 5px;
-    flex: 1 1 calc(33% - 30px); /* Adjust for three cards per row with margins */
-    box-sizing: border-box;
-  }
-  
-  .card-header {
-    display: flex;
-  }
-  
-  .card-header > h5 {
-    margin: 0;
-    padding: 5px;
-  }
-  
-  .card-pic img {
-    width: 30px;
-    border-radius: 300px;
-    height: auto;
-    object-fit: contain;
-    padding: 5px;
-  }
-  
-  .card-image img {
-    width: 100%;
-  }
-  
-  .card-content {
-    text-align: left;
-    line-height: 20px;
-    padding: 3px 10px;
-    border-bottom: 1px solid rgb(173, 173, 173);
-  }
-  
-  .add-comment {
-    display: flex;
-    align-items: center;
-  }
-  
-  .add-comment input {
-    margin: 0;
-    outline: none;
-    border: none;
-    padding: 10px;
-  }
-  
-  .comment {
-    border: none;
-    background-color: none;
-    font-weight: bolder;
-    cursor: pointer;
-    color: #39a3e9;
-  }
-  
-  .material-symbols-outlined-red {
-    color: red;
-    font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 24;
-  }
-  
-  .material-symbols-outlined {
-    cursor: pointer;
-  }
-  
-  .showComment {
-    width: 100vw;
-    min-height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: rgba(16, 13, 13, 0.4);
-  }
-  
-  .container {
-    display: flex;
-    width: 80%;
-    background-color: white;
-    position: absolute;
-    top: 5%;
-    left: 10%;
-    height: 500px;
-  }
-  
-  .postPic {
-    background-color: black;
-    display: flex;
-    align-items: center;
-  }
-  
-  .postPic img {
-    object-fit: contain;
-    width: 100%;
-  }
-  
-  .details {
-    width: 100%;
-    height: inherit;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .comment-section {
-    flex-grow: 4;
-    text-align: left;
-    margin-left: 10px;
-  }
-  
-  .close-comment {
-    position: fixed;
-    top: 1%;
-    right: 5%;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .material-symbols-outlined-comment {
-    font-size: 50px;
-    font-variation-settings: 'FILL' 0, 'wght' 700, 'GRAD' 0, 'opsz' 48;
-  }
-  
+  flex-direction: column;
+  display: flex;
+}
+
+.searchbox {
+  margin-bottom: 20px;
+  width: 50%;
+  align-self: center;
+  margin-top: 1%;
+}
+
+.posts-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  flex:left;
+  clear: both;
+}
+
+.card {
+  max-width: 300px; /* Adjust as needed */
+  margin: 15px; /* Adjust spacing between cards */
+  border: 1px solid rgb(173, 173, 173);
+  border-radius: 5px;
+  flex: 1 1 calc(33% - 30px);
+  box-sizing: border-box;
+}
+
+.card-header {
+  display: flex;
+}
+
+.card-header > h5 {
+  margin: 0;
+  padding: 5px;
+}
+
+.card-pic img {
+  width: 30px;
+  border-radius: 300px;
+  height: auto;
+  object-fit: contain;
+  padding: 5px;
+}
+
+.card-image img {
+  width: 100%;
+}
+
+.card-content {
+  text-align: left;
+  line-height: 20px;
+  padding: 3px 10px;
+  border-bottom: 1px solid rgb(173, 173, 173);
+}
+
+.add-comment {
+  display: flex;
+  align-items: center;
+}
+
+.add-comment input {
+  margin: 0;
+  outline: none;
+  border: none;
+  padding: 10px;
+}
+
+.comment {
+  border: none;
+  background-color: #39a3e9;
+  font-weight: bolder;
+  cursor: pointer;
+  color: white;
+}
+
+.material-symbols-outlined-red {
+  color: red;
+  font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 24;
+}
+
+.material-symbols-outlined {
+  cursor: pointer;
+}
+
+.showComment {
+  width: 100vw;
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(16, 13, 13, 0.4);
+}
+
+.container {
+  display: flex;
+  width: 80%;
+  background-color: white;
+  position: absolute;
+  top: 5%;
+  left: 10%;
+  height: 500px;
+}
+
+.postPic {
+  background-color: black;
+  display: flex;
+  align-items: center;
+}
+
+.postPic img {
+  object-fit: contain;
+  width: 100%;
+}
+
+.details {
+  width: 100%;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  color: black;
+}
+
+.comment-section {
+  flex-grow: 4;
+  text-align: left;
+  margin-left: 10px;
+}
+
+.close-comment {
+  position: fixed;
+  top: 1%;
+  right: 5%;
+  color: black;
+  border: none;
+  cursor: pointer;
+}
+
+.material-symbols-outlined-comment {
+  font-size: 50px;
+  font-variation-settings: 'FILL' 0, 'wght' 700, 'GRAD' 0, 'opsz' 48;
+}
+
+/* New styles for caption and comment sections */
+.card-caption {
+  padding: 10px;
+}
+
+.card-comment {
+  padding: 10px;
+}

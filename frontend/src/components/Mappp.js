@@ -76,8 +76,8 @@ function Mappp() {
   return <Map
     mapboxAccessToken="pk.eyJ1IjoicHJpeWFtYW5udXIiLCJhIjoiY2x3Z2sxZmg5MDY2ODJxbW13cW0wYzJ6aCJ9.T7bKfVcPe9VNfplLnZM2EA"
     initialViewState={{
-      longitude: 46,
-      latitude: 17,
+      longitude: 72.8777,
+      latitude: 19.0760,
       zoom: 8
     }}
     style={{ width: "100vw", height: "100vh",

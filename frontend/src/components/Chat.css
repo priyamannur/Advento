@@ -50,13 +50,14 @@ body, html, #root, .Chat {
   }
   
   .chat-message.user {
-    background-color: #e1f5fe;
+    background-color: 1d567b;
     align-self: flex-start;
   }
   
   .chat-message.server {
-    background-color: #ffe0b2;
+    background-color: #007bff;
     align-self: flex-end;
+    color: white;
   }
   
   .input-container {
