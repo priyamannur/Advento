@@ -5,10 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import { SearchBox } from '@mapbox/search-js-react';
 
 export default function Createpost() {
+
   const[body,setBody] =useState("");
   const [image,setImage]=useState("");
   const[url,setUrl]=useState("");
+  const [user, setUser] = useState({ name: "", photo: "" });
 const [address,setAddress] = useState("");
+  
   const navigate=useNavigate()
 const userr = localStorage.getItem("username")
   //Tost functions
@@ -21,6 +24,15 @@ const userr = localStorage.getItem("username")
   };
 
   useEffect(()=>{
+     // Fetch user data from local storage or backend
+     const userData = JSON.parse(localStorage.getItem("user"));
+     if (userData) {
+       setUser({ name: userData.name, photo: userData.photo });
+     } 
+
+
+
+
      //saving post to mongodb
      if(url){
       fetch("http://localhost:5000/createPost",{
@@ -107,10 +119,12 @@ const userr = localStorage.getItem("username")
       <div className='details'>
         <div className='card-header'>
           <div className='card-pic'>
-            <img src="https://plus.unsplash.com/premium_photo-1690086519096-0594592709d3?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+         {/*   <img src={user.photo || "https://cdn-icons-png.flaticon.com/128/3177/3177440.png"} alt="" /> */}
           </div>
-          <h5></h5>
-        </div>
+
+          <h5>{user.name}</h5>
+
+        
         
         
         <textarea value={body} onChange={(e)=>{

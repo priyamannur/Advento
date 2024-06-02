@@ -251,8 +251,7 @@ const [address,setAddress] = useState("");
               >
                 <div className="card-pic">
                   <img
-                    src="https://plus.unsplash.com/premium_photo-1690086519096-0594592709d3?q=80&w=1771&auto=
-                    format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    src={item.postedBy.Photo ? item.postedBy.Photo : picLink}
                     alt=""
                   />
                 </div>
