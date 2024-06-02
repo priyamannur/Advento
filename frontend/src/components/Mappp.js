@@ -2,25 +2,31 @@ import React, { useEffect, useState } from 'react';
 import Map, { Marker, Popup } from 'react-map-gl';
 import RoomIcon from '@mui/icons-material/Room';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import {LoginContext} from "../context/LoginContext.js"
 import StarIcon from '@mui/icons-material/Star';
 import "./Mappp.css"
 import axios from "axios"
 const moment = require('moment')
 
 
-
 function Mappp() {
-  const currentUser = "safak"
   const [pins, setPins] = useState([]);
   const [currentPlaceId,setCurrentPlaceId] = useState(null);
   const [newPlace,setNewPlace] = useState(null);
   const [title,setTitle] = useState(null);
   const [desc,setDesc] = useState(null);
   const [rating,setRating] = useState(0);
+  const userr = localStorage.getItem("username")
   useEffect(()=>{
+    
     const getPins = async()=>{
+      const config = {
+        headers: {
+          Authorization: "Bearer "+localStorage.getItem("jwt"),
+        }
+      };
       try{
-        const res = await axios.get("/addpins")
+        const res = await axios.get("/addpins",config)
         console.log("Pins fetched:", res.data);
         setPins(res.data);
       }
@@ -46,7 +52,6 @@ function Mappp() {
   const handleSubmit = async (e)=>{
     e.preventDefault();
     const newPin = {
-      username: currentUser,
       title,
       desc,
       rating,
@@ -54,7 +59,13 @@ function Mappp() {
       lng : newPlace.lng
     }
     try {
-      const res = await axios.post("/addpins",newPin);
+      const config = {
+        headers: {
+          Authorization: "Bearer "+localStorage.getItem("jwt"),
+        }
+      };
+      const res = await axios.post("/addpins",newPin,config);
+      
       setPins([...pins,res.data]);
       setNewPlace(null);
     } catch (error) {
@@ -80,10 +91,11 @@ function Mappp() {
     
   >
    
-    {pins.map(p=>(
+    {pins.map( p=>(
       <>
+     
     <Marker longitude={p.lng} latitude={p.lat} anchor='bottom' >
-      <RoomIcon style={{ fontSize: 30, color: p.username===currentUser ? "slateblue" : "tomato" }} 
+      <RoomIcon style={{ fontSize: 30, color: p.username===userr? "slateblue" : "tomato"} } 
       onClick= {()=>handleMarkerClick(p._id)}
       />
     </Marker>
@@ -143,3 +155,5 @@ function Mappp() {
   </Map>;
 }
 export default Mappp
+ 
+//color: p.username===currentUser ? "slateblue" : "tomato" 
