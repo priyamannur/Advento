@@ -5,9 +5,11 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function Createpost() {
+
   const[body,setBody] =useState("");
   const [image,setImage]=useState("");
   const[url,setUrl]=useState("");
+  const [user, setUser] = useState({ name: "", photo: "" });
 
   const navigate=useNavigate()
 
@@ -17,6 +19,15 @@ export default function Createpost() {
 
 
   useEffect(()=>{
+     // Fetch user data from local storage or backend
+     const userData = JSON.parse(localStorage.getItem("user"));
+     if (userData) {
+       setUser({ name: userData.name, photo: userData.photo });
+     } 
+
+
+
+
      //saving post to mongodb
      if(url){
       fetch("http://localhost:5000/createPost",{
@@ -97,9 +108,9 @@ export default function Createpost() {
       <div className='details'>
         <div className='card-header'>
           <div className='card-pic'>
-            <img src="https://plus.unsplash.com/premium_photo-1690086519096-0594592709d3?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+         {/*   <img src={user.photo || "https://cdn-icons-png.flaticon.com/128/3177/3177440.png"} alt="" /> */}
           </div>
-          <h5>Ramya</h5>
+          <h5>{user.name}</h5>
         </div>
         
         

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function PostDetail({ item, toggleDetails }) {
+  var picLink = "https://cdn-icons-png.flaticon.com/128/3177/3177440.png";
   const navigate = useNavigate();
   const [comment, setComment] = useState("");
 
@@ -47,6 +48,22 @@ export default function PostDetail({ item, toggleDetails }) {
       });
   };
 
+  const deleteComment = (commentId) => {
+    if (window.confirm("Do you really want to delete this comment?")) {
+      fetch(`http://localhost:5000/deleteComment/${commentId}`, {
+        method: "delete",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          console.log(result);
+          // Update the UI to remove the deleted comment
+        });
+    }
+  };
+
   return (
     <div className="showComment">
       <div className="container">
@@ -61,11 +78,12 @@ export default function PostDetail({ item, toggleDetails }) {
           >
             <div className="card-pic">
               <img
-                src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGVyc29ufGVufDB8MnwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+                src={item.postedBy.Photo ? item.postedBy.Photo : picLink}
                 alt=""
               />
             </div>
             <h5>{item.postedBy.name}</h5>
+          
             <div
               className="deletePost"
               onClick={() => {
@@ -83,12 +101,23 @@ export default function PostDetail({ item, toggleDetails }) {
           >
             {item.comments.map((comment) => {
               return (
-                <p className="comm" key={comment._id}>
-                  <span className="commenter" style={{ fontWeight: "bolder" }}>
-                    {comment.postedBy.name}{" "}
-                  </span>
-                  <span className="commentText">{comment.comment}</span>
-                </p>
+                <div key={comment._id} className="comment-wrapper">
+                  <p className="comm">
+                    <span className="commenter" style={{ fontWeight: "bolder" }}>
+                      {comment.postedBy.name}{" "}
+                    </span>
+                    <span className="commentText">{comment.comment}</span>
+                    <span
+                      className="deleteComment"
+                      onClick={() => {
+                        deleteComment(comment._id);
+                      }}
+                      style={{ marginLeft: "10px", cursor: "pointer" }}
+                    >
+                      <span className="material-symbols-outlined">delete</span>
+                    </span>
+                  </p>
+                </div>
               );
             })}
           </div>
