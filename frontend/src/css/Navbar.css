@@ -23,9 +23,8 @@ li{
 
 a{
     text-decoration: none;
-    color:black;
+    color:white;
     font-size: 18px;
-    
 
 }
 
@@ -45,4 +44,10 @@ a{
 .primaryBtn:hover{
     transform: translateY(-5px);
     box-shadow: 0 10px 20px -10px rgba(219, 24, 44, 0.6);
+}
+.seedha{
+    background-color: #0f1d5c;
+    width:max-content;
+    margin: 2px;
+    border-radius: 12px;
 }

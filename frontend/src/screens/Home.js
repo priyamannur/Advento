@@ -3,6 +3,9 @@ import "../css/Home.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
+import { SearchBox } from '@mapbox/search-js-react';
 
 export default function Home() {
   var picLink = "https://cdn-icons-png.flaticon.com/128/3177/3177440.png";
@@ -11,7 +14,25 @@ export default function Home() {
   const [comment, setComment] = useState("");
   const [show, setShow] = useState(false);
   const [item, setItem] = useState([]);
+  
+const [address,setAddress] = useState("");
 
+  const OnSelected = (res)=>{
+    const place_name = res.features[0].properties.name;
+    setAddress(place_name); 
+    // Fetching all posts
+    fetch(`http://localhost:5000/place?q=${place_name !== undefined ? place_name: ""}`, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      }
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        setData(result);
+      })
+      .catch((err) => console.log(err));
+  };
   // Toast functions
   const notifyA = (msg) => toast.error(msg);
   const notifyB = (msg) => toast.success(msg);
@@ -126,7 +147,13 @@ export default function Home() {
 
   return (
     <div className="home">
+      <div className="searchbox">
+      <SearchBox accessToken={'pk.eyJ1IjoicHJpeWFtYW5udXIiLCJhIjoiY2x3Z2sxZmg5MDY2ODJxbW13cW0wYzJ6aCJ9.T7bKfVcPe9VNfplLnZM2EA'}
+      value={address}
+      onRetrieve={OnSelected}/>
+      </div>
       {/* card */}
+      <div className="posts-container">
       {data.map((posts) => {
         return (
           <div className="card" key={posts._id}>
@@ -280,6 +307,7 @@ export default function Home() {
               </div>
             </div>
           </div>
+          
           <div
             className="close-comment"
             onClick={() => {
@@ -292,6 +320,7 @@ export default function Home() {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 }

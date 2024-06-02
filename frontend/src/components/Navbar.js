@@ -13,13 +13,14 @@ export default function Navbar({ login }) {
     if (login || token) {
       return [
         <>
-          <Link to="/profile">
+          <button className="seedha"><Link to="/profile">
             <li>Profile</li>
           </Link>
-          <Link to="/createPost">Create Post</Link>
-          <Link style={{ marginLeft: "20px" }} to="/followingpost">
+          </button>
+          <button className="seedha"><Link to="/createPost">Create Post</Link></button>
+          <button className="seedha"> <Link style={{ marginLeft: "20px" }} to="/followingpost">
             My Following
-          </Link>
+          </Link></button>
           <Link to={""}>
             <button className="primaryBtn" onClick={() => setModalOpen(true)}>
               Log Out

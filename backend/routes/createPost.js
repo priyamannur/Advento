@@ -7,17 +7,11 @@ const POST = mongoose.model("POST")
 
 
 // Route
-router.get("/allposts", requireLogin, (req, res) => {
-    POST.find()
-        .populate("postedBy", "_id name Photo")
-        .populate("comments.postedBy", "_id name")
-        .sort("-createdAt")
-        .then(posts => res.json(posts))
-        .catch(err => console.log(err))
-})
+
 
 router.post("/createPost", requireLogin, (req, res) => {
-    const { body, pic } = req.body;
+    const { body, pic, address} = req.body;
+    console.log(address)
     console.log(pic)
     if (!body || !pic) {
         return res.status(422).json({ error: "Please add all the fields" })
@@ -25,23 +19,34 @@ router.post("/createPost", requireLogin, (req, res) => {
     console.log(req.user)
     const post = new POST({
         body,
+        location: address,
         photo: pic,
-        postedBy: req.user
+        postedBy: req.user,
+        
     })
     post.save().then((result) => {
         return res.json({ post: result })
     }).catch(err => console.log(err))
 })
 
+
 router.get("/myposts", requireLogin, (req, res) => {
     POST.find({ postedBy: req.user._id })
         .populate("postedBy", "_id name Photo")
         .populate("comments.postedBy", "_id name")
         .sort("-createdAt")
-        .then(myposts => {
-            res.json(myposts)
-        })
-})
+        .then(posts => res.json(posts))
+        .catch(err => console.log(err))
+});
+
+router.get("/allposts", requireLogin, (req, res) => {
+    POST.find()
+        .populate("postedBy", "_id name Photo")
+        .populate("comments.postedBy", "_id name")
+        .sort("-createdAt")
+        .then(posts => res.json(posts))
+        .catch(err => console.log(err))
+});
 
 router.put("/like", requireLogin, (req, res) => {
     POST.findByIdAndUpdate(req.body.postId, {
