@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../css/Home.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
-import axios from "axios";
 
+import {Link} from "react-router-dom"
 import { SearchBox } from '@mapbox/search-js-react';
 
 export default function Home() {
@@ -21,7 +20,7 @@ const [address,setAddress] = useState("");
     const place_name = res.features[0].properties.name;
     setAddress(place_name); 
     // Fetching all posts
-    fetch(`http://localhost:5000/place?q=${place_name !== undefined ? place_name: ""}`, {
+    fetch(`/place?q=${place_name !== undefined ? place_name: ""}`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       }
@@ -33,29 +32,27 @@ const [address,setAddress] = useState("");
       })
       .catch((err) => console.log(err));
   };
-  // Toast functions
-  const notifyA = (msg) => toast.error(msg);
   const notifyB = (msg) => toast.success(msg);
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (!token) {
-      navigate("./signup");
+      navigate("/signup");
     }
 
     // Fetching all posts
-    fetch("http://localhost:5000/allposts", {
+    fetch("http://localhost:3000/allposts", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
+    
         setData(result);
       })
       .catch((err) => console.log(err));
-  }, []);
+  },[]);
 
   // to show and hide comments
   const toggleComment = (posts) => {
@@ -68,7 +65,7 @@ const [address,setAddress] = useState("");
   };
 
   const likePost = (id) => {
-    fetch("http://localhost:5000/like", {
+    fetch("/like", {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -92,7 +89,7 @@ const [address,setAddress] = useState("");
       });
   };
   const unlikePost = (id) => {
-    fetch("http://localhost:5000/unlike", {
+    fetch("/unlike", {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -118,14 +115,14 @@ const [address,setAddress] = useState("");
 
   // function to make comment
   const makeComment = (text, id) => {
-    fetch("http://localhost:5000/comment", {
+    fetch("/comment", {
       method: "put",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
       body: JSON.stringify({
-        text: text,
+        text: comment,
         postId: id,
       }),
     })
@@ -146,38 +143,48 @@ const [address,setAddress] = useState("");
   };
 
   return (
-    <div className="home">
+    <>
       <div className="searchbox">
       <SearchBox accessToken={'pk.eyJ1IjoicHJpeWFtYW5udXIiLCJhIjoiY2x3Z2sxZmg5MDY2ODJxbW13cW0wYzJ6aCJ9.T7bKfVcPe9VNfplLnZM2EA'}
       value={address}
       onRetrieve={OnSelected}/>
       </div>
+    <div className="home">
+    
       {/* card */}
-      <div className="posts-container">
+      
       {data.map((posts) => {
         return (
+          <div className="posts-container">
           <div className="card" key={posts._id}>
             {/* card header */}
             <div className="card-header">
-              <div className="card-pic">
+            <h3 style={{aligntext:"centre"}}>{posts.location}</h3>
+              {/* <div className="card-pic">
                 <img
                   src={posts.postedBy.Photo ? posts.postedBy.Photo : picLink}
                   alt=""
                 />
-              </div>
-              <h5>
-                <Link to={`/profile/${posts.postedBy._id}`}>
+              </div> */}
+              <div>
+              {/* <div><h5>
+                <Link style={{color:"black"}} to={`/profile/${posts.postedBy._id}`}>
                   {posts.postedBy.name}
                 </Link>
-              </h5>
+              </h5></div> */}
+              
+              <div></div>
+            </div>
             </div>
             {/* card image */}
             <div className="card-image">
-              <img src={posts.photo} alt="" />
+              <img  onClick={() => {
+                  toggleComment(posts);
+                }} src={posts.photo} alt="" />
             </div>
 
             {/* card content */}
-            <div className="card-content">
+             <div className="card-content">
               {posts.likes.includes(
                 JSON.parse(localStorage.getItem("user"))._id
               ) ? (
@@ -199,8 +206,8 @@ const [address,setAddress] = useState("");
                   favorite
                 </span>
               )}
-
-              <p>{posts.likes.length} Likes</p>
+              <p>{posts.likes.length} Likes</p></div>
+              {/*
               <p>{posts.body} </p>
               <p
                 style={{ fontWeight: "bold", cursor: "pointer" }}
@@ -210,12 +217,11 @@ const [address,setAddress] = useState("");
               >
                 View all comments
               </p>
-            </div>
-
+            </div> */}
             {/* add Comment */}
-            <div className="add-comment">
+            {/* <div className="add-comment" >
               <span className="material-symbols-outlined">mood</span>
-              <input
+              <input 
                 type="text"
                 placeholder="Add a comment"
                 value={comment}
@@ -231,12 +237,13 @@ const [address,setAddress] = useState("");
               >
                 Post
               </button>
-            </div>
+            </div> */}
+          </div>
           </div>
         );
       })}
-
-      {/* show Comment */}
+    
+      {/* show Comment*/}
       {show && (
         <div className="showComment">
           <div className="container">
@@ -256,9 +263,36 @@ const [address,setAddress] = useState("");
                     alt=""
                   />
                 </div>
-                <h5>{item.postedBy.name}</h5>
+                <div><h5>
+                <Link style={{color:"black"}} to={`/profile/${item.postedBy._id}`}>
+                  {item.postedBy.name}
+                </Link>
+              </h5></div> 
+                <div className="card-content">
+              {item.likes.includes(
+                JSON.parse(localStorage.getItem("user"))._id
+              ) ? (
+                <span
+                  className="material-symbols-outlined material-symbols-outlined-red"
+                  onClick={() => {
+                    unlikePost(item._id);
+                  }}
+                >
+                  favorite
+                </span>
+              ) : (
+                <span
+                  className="material-symbols-outlined"
+                  onClick={() => {
+                    likePost(item._id);
+                  }}
+                >
+                  favorite
+                </span>
+              )}
+              <p>{item.likes.length} Likes</p>
               </div>
-
+              </div>
               {/* commentSection */}
               <div
                 className="comment-section"
@@ -278,13 +312,11 @@ const [address,setAddress] = useState("");
                   );
                 })}
               </div>
-
-              {/* card content */}
+              {/* card content*/ }
               <div className="card-content">
                 <p>{item.likes.length} Likes</p>
                 <p>{item.body}</p>
               </div>
-
               {/* add Comment */}
               <div className="add-comment">
                 <span className="material-symbols-outlined">mood</span>
@@ -308,7 +340,6 @@ const [address,setAddress] = useState("");
               </div>
             </div>
           </div>
-          
           <div
             className="close-comment"
             onClick={() => {
@@ -319,9 +350,9 @@ const [address,setAddress] = useState("");
               close
             </span>
           </div>
-        </div>
+        </div> 
       )}
       </div>
-    </div>
+      </>
   );
 }

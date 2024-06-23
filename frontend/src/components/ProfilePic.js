@@ -22,7 +22,7 @@ export default function ProfilePic({ changeprofile }) {
 
   // Saving post to MongoDB
   const postPic = () => {
-    fetch("http://localhost:5000/uploadProfilePic", {
+    fetch("/uploadProfilePic", {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export default function ProfilePic({ changeprofile }) {
 
   // Removing the profile picture
   const removePic = () => {
-    fetch("http://localhost:5000/removeProfilePic", {
+    fetch("/removeProfilePic", {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -109,9 +109,7 @@ export default function ProfilePic({ changeprofile }) {
                 setUrl(null)
                 postPic()
             }} style={{ color: "#ED4956" }}>
-            
              {" "}
-          
             Remove Current Photo
           </button>
         </div>

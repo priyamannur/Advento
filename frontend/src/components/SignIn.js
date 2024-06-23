@@ -28,7 +28,7 @@ export default function SignIn() {
 
         
             //Sending data to server
-            fetch("http://localhost:5000/signin",{
+            fetch("/signin",{
               method:"post",
               headers:{
                  "Content-Type":"application/json"
@@ -47,12 +47,11 @@ export default function SignIn() {
                  notifyB("Signed In Successfully")
                  localStorage.setItem("jwt",data.token)
                  localStorage.setItem("user",JSON.stringify(data.user))
-                 localStorage.setItem("username",JSON.stringify(data.user.username))
+                 localStorage.setItem("username",(data.user.userName))
+                 console.log(localStorage.getItem("username"))
                  setUserLogin(true)
                  navigate("/")
               }
-              
-              console.log(data)
             })
         
         

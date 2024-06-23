@@ -16,7 +16,7 @@ import Modal from "./components/Modal";
 import UserProfie from "./components/UserProfile";
 import MyFolliwngPost from "./screens/MyFollowingPost";
 import Sidebar from "./Sidebar"
-
+import Help from "./screens/Help"
 
 function App() {
   const [userLogin, setUserLogin] = useState(false);
@@ -27,6 +27,7 @@ function App() {
       <LoginContext.Provider value={{setUserLogin,setModalOpen}}>
       <Sidebar/>
       <Navbar login={userLogin}/>
+      
     
     <Routes>
       <Route path="/" element={<Home />} />
@@ -39,13 +40,13 @@ function App() {
       <Route path="/createPost" element={<Createpost />}></Route>
       <Route path="/profile/:userid" element={<UserProfie />}></Route>
       <Route path="/followingpost" element={<MyFolliwngPost />}></Route>
+      <Route path="/help" element={<Help />}></Route>
       </Routes>
 
     
     <ToastContainer theme="dark"/>
     {modalOpen && <Modal setModalOpen={setModalOpen}></Modal> }
       </LoginContext.Provider>
-   
         </div>
         </BrowserRouter>
     

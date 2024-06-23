@@ -5,9 +5,8 @@ const USER = require("../models/model.js")
 const requireLogin = require("../middlewares/requireLogin");
 //create a pin
 router.post("/",requireLogin, async (req,res)=>{
-  console.log(req.user.userName)
   const newPin = new Pin({
-    userame: req.user.userName,
+    username:req.body.username,
     title: req.body.title,
     desc: req.body.desc,
     rating: req.body.rating,
@@ -25,9 +24,9 @@ router.post("/",requireLogin, async (req,res)=>{
 //get a pin
 router.get("/",requireLogin,async (req, res) => {
     try {
-      const users = await USER.find({following: req.user.following});
+      const users = await USER.find({_id: req.user.following});
       const userNames = users.map(user => user.userName);
-      userNames.push(req.user.username);
+      userNames.push(req.user.userName);
       const pins = await Pin.find({username: { $in: userNames }});
       res.status(200).json(pins);
     } catch (err) {

@@ -38,7 +38,7 @@ function Chat() {
     <div className="Chat">
       <h1>Travel Assistant with Ed</h1>
       <div className="main-container">
-        <Sideb recentPrompts={recentPrompts} showOlderPrompts={showOlderPrompts} />
+        {/* <Sideb recentPrompts={recentPrompts} showOlderPrompts={showOlderPrompts} /> */}
         <div className="chat-container">
           <div className="chat-content">
             {chatHistory.map((chat, index) => (

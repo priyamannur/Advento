@@ -20,6 +20,7 @@ export default function SignUp() {
    const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
   
    const postData = ()=>{
+      console.log(userName)
 //checking email
 if(!emailRegex.test(email)){
    notifyA("Invalid email")
@@ -33,7 +34,7 @@ if(!emailRegex.test(email)){
 
 
     //Sending data to server
-    fetch("http://localhost:5000/signup",{
+    fetch("/signup",{
       method:"post",
       headers:{
          "Content-Type":"application/json"
@@ -54,8 +55,6 @@ if(!emailRegex.test(email)){
          notifyB(data.message)
          navigate("/signin")
       }
-      
-      console.log(data)
     })
 
 
@@ -87,8 +86,9 @@ if(!emailRegex.test(email)){
 
      <div>
      <input type='text' name="username" id="username"
-        placeholder='Username'value={userName} onChange={(e)=>
+        placeholder='Username' value={userName} onChange={(e)=>
          {setUserName(e.target.value)}}/>
+         
      </div>
 
      <div>

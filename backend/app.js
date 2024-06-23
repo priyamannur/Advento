@@ -7,7 +7,7 @@ const {mongoUrl} = require("./keys");
 const cors=require("cors");
 const pinRoute = require("./routes/pins.js");
 const chatRoute = require("./routes/chat.js")
-app.use(cors())
+app.use(cors());
 
 require('./models/model')
 require('./models/post')

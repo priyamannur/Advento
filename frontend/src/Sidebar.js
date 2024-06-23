@@ -4,7 +4,7 @@ import { slide as Menu } from 'react-burger-menu';
 
 function Sidebar() {
   return (
-    <Menu>
+    <Menu >
       <div className='menubox'>
         <a className="menu-item" href="/addpins">
           Add Pins

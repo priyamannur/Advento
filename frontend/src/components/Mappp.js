@@ -17,8 +17,8 @@ function Mappp() {
   const [desc,setDesc] = useState(null);
   const [rating,setRating] = useState(0);
   const userr = localStorage.getItem("username")
+
   useEffect(()=>{
-    
     const getPins = async()=>{
       const config = {
         headers: {
@@ -52,6 +52,7 @@ function Mappp() {
   const handleSubmit = async (e)=>{
     e.preventDefault();
     const newPin = {
+      username:userr,
       title,
       desc,
       rating,
@@ -119,7 +120,7 @@ function Mappp() {
         <div>
           <label>Information</label>
           <div>
-            <span className="username">Created by <b>{p.username} </b></span></div>
+            <span className="username">Created by <b>{p.username}</b></span></div>
           <div><span className="date">{moment(p.createdAt).fromNow()}</span></div>
         </div>
       </div>

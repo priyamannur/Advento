@@ -8,6 +8,7 @@ const POST = mongoose.model("POST")
 router.get("/place", requireLogin, (req, res) => {
     let query = {}; 
     const place = req.query.q;
+    console.log(place)
     if (place) {
         query = { location: place };
     }

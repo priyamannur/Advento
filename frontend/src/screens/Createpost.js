@@ -23,7 +23,7 @@ const userr = localStorage.getItem("username")
   useEffect(()=>{
      //saving post to mongodb
      if(url){
-      fetch("http://localhost:5000/createPost",{
+      fetch("/createPost",{
       method:"post",
       headers:{
         "Content-Type":"application/json",
@@ -92,7 +92,6 @@ const userr = localStorage.getItem("username")
       <label>Add location</label>
       <SearchBox accessToken={'pk.eyJ1IjoicHJpeWFtYW5udXIiLCJhIjoiY2x3Z2sxZmg5MDY2ODJxbW13cW0wYzJ6aCJ9.T7bKfVcPe9VNfplLnZM2EA'}
       value={address}
-      onChange={address}
       onRetrieve={(res)=>OnSelected(res)}/>
       </div>
       {/* image preview */}

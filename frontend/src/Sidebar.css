@@ -6,7 +6,7 @@
     left: 36px;
     top: 36px;
   }
-  
+ 
   .bm-burger-bars {
     background: #0f1d5c;
   }
@@ -57,6 +57,7 @@
   }
    .menu-item{
     color: #ffffff;
+    text-decoration: none;
   }
   .bm-item:hover {
     color: #ffffff;

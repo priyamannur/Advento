@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
 export default function MyFolliwngPost() {
+  var picLink = "https://cdn-icons-png.flaticon.com/128/3177/3177440.png";
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [comment, setComment] = useState("");
@@ -22,7 +23,7 @@ export default function MyFolliwngPost() {
     }
 
     // Fetching all posts
-    fetch("http://localhost:5000/myfollwingpost", {
+    fetch("/myfollwingpost", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
@@ -110,7 +111,7 @@ export default function MyFolliwngPost() {
       .then((res) => res.json())
       .then((result) => {
         const newData = data.map((posts) => {
-          if (posts._id == result._id) {
+          if (posts._id === result._id) {
             return result;
           } else {
             return posts;
@@ -124,24 +125,32 @@ export default function MyFolliwngPost() {
   };
 
   return (
+    <>
     <div className="home">
+    
       {/* card */}
+      
       {data.map((posts) => {
         return (
-          <div className="card">
+          <div className="posts-container">
+          <div className="card" key={posts._id}>
             {/* card header */}
             <div className="card-header">
               <div className="card-pic">
                 <img
-                  src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGVyc29ufGVufDB8MnwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+                  src={posts.postedBy.Photo ? posts.postedBy.Photo : picLink}
                   alt=""
                 />
               </div>
-              <h5>
-                <Link to={`/profile/${posts.postedBy._id}`}>
+              <div>
+              <div><h5>
+                <Link style={{color:"black"}} to={`/profile/${posts.postedBy._id}`}>
                   {posts.postedBy.name}
                 </Link>
-              </h5>
+              </h5></div>
+              
+              <div><h6>{posts.location}</h6></div>
+            </div>
             </div>
             {/* card image */}
             <div className="card-image">
@@ -171,7 +180,6 @@ export default function MyFolliwngPost() {
                   favorite
                 </span>
               )}
-
               <p>{posts.likes.length} Likes</p>
               <p>{posts.body} </p>
               <p
@@ -183,7 +191,6 @@ export default function MyFolliwngPost() {
                 View all comments
               </p>
             </div>
-
             {/* add Comment */}
             <div className="add-comment">
               <span className="material-symbols-outlined">mood</span>
@@ -205,6 +212,7 @@ export default function MyFolliwngPost() {
               </button>
             </div>
           </div>
+          </div>
         );
       })}
 
@@ -223,13 +231,13 @@ export default function MyFolliwngPost() {
               >
                 <div className="card-pic">
                   <img
-                    src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGVyc29ufGVufDB8MnwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+                    src="https://plus.unsplash.com/premium_photo-1690086519096-0594592709d3?q=80&w=1771&auto=
+                    format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                     alt=""
                   />
                 </div>
                 <h5>{item.postedBy.name}</h5>
               </div>
-
               {/* commentSection */}
               <div
                 className="comment-section"
@@ -237,7 +245,7 @@ export default function MyFolliwngPost() {
               >
                 {item.comments.map((comment) => {
                   return (
-                    <p className="comm">
+                    <p className="comm" key={comment._id}>
                       <span
                         className="commenter"
                         style={{ fontWeight: "bolder" }}
@@ -249,13 +257,11 @@ export default function MyFolliwngPost() {
                   );
                 })}
               </div>
-
               {/* card content */}
               <div className="card-content">
                 <p>{item.likes.length} Likes</p>
                 <p>{item.body}</p>
               </div>
-
               {/* add Comment */}
               <div className="add-comment">
                 <span className="material-symbols-outlined">mood</span>
@@ -291,6 +297,7 @@ export default function MyFolliwngPost() {
           </div>
         </div>
       )}
-    </div>
+      </div>
+      </>
   );
 }

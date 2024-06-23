@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 export default function PostDetail({ item, toggleDetails }) {
   const navigate = useNavigate();
   const [comment, setComment] = useState("");
-
   // Toast functions
   const notifyB = (msg) => toast.success(msg);
 
@@ -29,7 +28,7 @@ export default function PostDetail({ item, toggleDetails }) {
   };
 
   const makeComment = (text, postId) => {
-    fetch("http://localhost:5000/comment", {
+    fetch(`/comment`, {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -82,10 +81,11 @@ export default function PostDetail({ item, toggleDetails }) {
             style={{ borderBottom: "1px solid #00000029" }}
           >
             {item.comments.map((comment) => {
+              console.log(comment)
               return (
                 <p className="comm" key={comment._id}>
                   <span className="commenter" style={{ fontWeight: "bolder" }}>
-                    {comment.postedBy.name}{" "}
+                    {comment.name}{":-"}
                   </span>
                   <span className="commentText">{comment.comment}</span>
                 </p>

@@ -1,14 +1,16 @@
 const express = require ("express");
 const router = express.Router()
-
 const mongoose= require("mongoose");
 const USER = mongoose.model("USER");
-
 const bcrypt =require("bcrypt");
+const app = express();  
 
+const cors=require("cors");
+app.use(cors());
 const jwt=require("jsonwebtoken");
 const{Jwt_secret}=require("../keys");
 const requireLogin = require("../middlewares/requireLogin");
+
 
 
 router.get ('/',(req,res)=>{
@@ -19,10 +21,10 @@ router.get ('/',(req,res)=>{
 
 router.post("/signup",(req,res)=>{
 const{name,userName,email,password}=req.body;
-/*const name= req.body.name
-const userName = req.body.userName
-const email = req.body.email
-const password = req.body.password*/
+// const name= req.body.name
+// const userName = req.body.userName
+// const email = req.body.email
+// const password = req.body.password
 
 if(!name  || !email || !userName || !password){
    return res.status(422).json({error:"Please add all the fields"})
