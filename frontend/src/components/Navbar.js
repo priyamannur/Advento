@@ -4,7 +4,7 @@ import "../css/Navbar.css";
 import { Link } from "react-router-dom";
 import { LoginContext } from "../context/LoginContext";
 import { useNavigate } from "react-router-dom";
-
+import Sidebar from "../Sidebar"
 export default function Navbar({ login }) {
   const navigate = useNavigate()
   const { setModalOpen } = useContext(LoginContext);
@@ -13,6 +13,7 @@ export default function Navbar({ login }) {
     if (login || token) {
       return [
         <>
+        <Sidebar/>
           <button className="seedha"><Link to="/profile">
             <li>Profile</li>
           </Link>

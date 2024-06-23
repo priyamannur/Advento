@@ -3,12 +3,26 @@ import React, { useEffect, useState } from "react";
 import "../css/Profile.css";
 import { useParams } from "react-router-dom";
 
+import PostDetail from './PostDetail';
 export default function UserProfie() {
   var picLink = "https://cdn-icons-png.flaticon.com/128/3177/3177440.png";
   const { userid } = useParams();
   const [isFollow, setIsFollow] = useState(false);
   const [user, setUser] = useState("");
   const [posts, setPosts] = useState([]);
+  const [pic,setPic]=useState([])
+  const [show,setShow]=useState(false);
+
+
+    
+  const toggleDetails = (posts) => {
+    if (show) {
+      setShow(false);
+    } else {
+      setShow(true);
+      setPosts(posts);
+    }
+  };
 
   // to follow user
   const followUser = (userId) => {
@@ -124,17 +138,17 @@ export default function UserProfie() {
             <img
               key={pics._id}
               src={pics.photo}
-              // onClick={() => {
-              //     toggleDetails(pics)
-              // }}
+             onClick={() => {
+                  toggleDetails(pics)
+            }}
               className="item"
             ></img>
           );
         })}
       </div>
-      {/* {show &&
+      {show &&
         <PostDetail item={posts} toggleDetails={toggleDetails} />
-      } */}
+      } 
     </div>
   );
 }

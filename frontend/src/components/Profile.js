@@ -8,6 +8,7 @@ export default function Profile() {
   const [show,setShow]=useState(false);
   const [posts,setPosts]=useState([])
 
+  
    
   const toggleDetails = (posts) => {
     if (show) {
@@ -54,14 +55,7 @@ export default function Profile() {
 
       </div>
        {/*Profile-data*/}
-       <div className='profile-data'>
-        <h1>{JSON.parse(localStorage.getItem("user")).name}</h1>
-        <div className='profile-info' style={{display:"flex"}}>
-          <p>40 posts</p>
-          <p>40 followers</p>
-          <p>40 following</p>
-        </div>
-       </div>
+       
 
       
       </div>
@@ -86,10 +80,8 @@ export default function Profile() {
   </div>
 
   {show &&
-  <PostDetail item={posts} toggleDetails={toggleDetails}/>
-}
-
-
+  <PostDetail item={posts} toggleDetails={toggleDetails} />
+  }
  </div> 
   );
 

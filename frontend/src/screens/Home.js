@@ -41,7 +41,7 @@ const [address,setAddress] = useState("");
     }
 
     // Fetching all posts
-    fetch("http://localhost:3000/allposts", {
+    fetch("/allposts", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
@@ -61,6 +61,30 @@ const [address,setAddress] = useState("");
     } else {
       setShow(true);
       setItem(posts);
+    }
+  };
+  const deleteComment = (commentId) => {
+    if (window.confirm("Do you really want to delete this comment?")) {
+      fetch(`/deleteComment/${commentId}`, {
+        method: "delete",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          const newData = data.map((posts) => {
+            if (posts._id === result._id) {
+              return result;
+            } else {
+              return posts;
+            }
+          });
+          setData(newData);
+          setComment("");
+          notifyB("Comment deleted");
+          console.log(result);
+        });
     }
   };
 
@@ -307,6 +331,16 @@ const [address,setAddress] = useState("");
                         {comment.postedBy.name}{" "}
                       </span>
                       <span className="commentText">{comment.comment}</span>
+                      <span
+                      className="deleteComment"
+                      onClick={() => {
+                        deleteComment(comment._id);
+                        toggleComment();
+                      }}
+                      style={{ marginLeft: "10px", cursor: "pointer" }}
+                    >
+                      <span className="material-symbols-outlined">delete</span>
+                    </span>
                     </p>
                   );
                 })}
