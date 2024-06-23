@@ -12,8 +12,11 @@ export default function Navbar({ login }) {
     const token = localStorage.getItem("jwt");
     if (login || token) {
       return [
-        <>
-        <Sidebar/>
+        <div className="navbarFull">
+        <div className="sidebb">
+            <Sidebar className="sideb"/>
+        </div>
+        <div className="navbar">
           <button className="seedha"><Link to="/profile">
             <li>Profile</li>
           </Link>
@@ -27,7 +30,8 @@ export default function Navbar({ login }) {
               Log Out
             </button>
           </Link>
-        </>,
+          </div>
+        </div>,
       ];
     } else {
       return [
@@ -44,9 +48,7 @@ export default function Navbar({ login }) {
   };
 
   return (
-    <div className="navbar">
-      <img src={logo} alt="" onClick={()=>{navigate("/")}} />
       <ul className="nav-menu">{loginStatus()}</ul>
-    </div>
+  
   );
 }

@@ -8,7 +8,14 @@ const POST = mongoose.model("POST")
 
 // Route
 
-
+router.get("/sortByLikes", requireLogin, (req, res) => {
+    POST.find()
+        .populate("postedBy", "_id name Photo")
+        .populate("comments.postedBy", "_id name")
+        .sort("-likes.length")
+        .then(posts => res.json(posts))
+        .catch(err => console.log(err))
+});
 router.post("/createPost", requireLogin, (req, res) => {
     const { body, pic, address} = req.body;
     console.log(address)

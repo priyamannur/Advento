@@ -1,13 +1,16 @@
-
-img{
-    width: 10%;
-    object-fit: contain;
+.navbarFull{
+    margin: 0px;
+    width: 100%;
+}
+.sideb{
+    margin-right: auto;
+    display: inline-block;
 }
 
 .navbar{
-    display:flex;
-    justify-content: space-around;
-    box-shadow: 1px 5px 5px #e0dcdc;
+   
+    margin-left: auto;
+    display: inline-block;
 }
 
 ul{

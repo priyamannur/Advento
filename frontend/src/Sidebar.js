@@ -17,7 +17,7 @@ function Sidebar() {
       </div>
       <div className='menubox'>
         <a className="menu-item" href="/">
-          Explore
+          Home
         </a>
       </div>
       <div className='menubox'>

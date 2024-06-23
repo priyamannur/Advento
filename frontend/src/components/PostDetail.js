@@ -105,7 +105,7 @@ export default function PostDetail({item, toggleDetails }) {
                   className="commenter"
                   style={{ fontWeight: "bolder" }}
                 >
-                  {comment.postedBy.name}{" "}
+                  {comment.postedBy}{":-"}
                 </span>
                 <span className="commentText">{comment.comment}</span>
                 <span

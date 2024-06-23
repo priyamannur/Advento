@@ -87,7 +87,68 @@ router.post("/signin",(req,res)=>{
        .catch(err => console.log(err))
     })
 })
-
+// router.post("/forgot-password", (req, res) => {
+//     const { email } = req.body;
+  
+//     if (!email) {
+//       return res.status(422).json({ error: "Please provide email" });
+//     }
+  
+//     // Generate reset token and expiry time
+//     crypto.randomBytes(32, (err, buffer) => {
+//       if (err) {
+//         console.error(err);
+//         return res.status(500).json({ error: "Internal server error" });
+//       }
+//       const token = buffer.toString("hex");
+  
+//       USER.findOne({ email: email })
+//         .then((user) => {
+//           if (!user) {
+//             return res.status(404).json({ error: "User not found" });
+//           }
+  
+//           // Save reset token and expiry time to user document
+//           user.resetPasswordToken = token;
+//           user.resetPasswordExpires = Date.now() + 3600000; // Token expires in 1 hour
+  
+//           return user.save();
+//         })
+//         .then((user) => {
+//           // Send email with reset token
+//           const transporter = nodemailer.createTransport({
+//             service: "Gmail",
+//             auth: {
+//               user: "priyamannur14608@gmail.com", // Update with your email credentials
+//               pass: "your_password", // Update with your email password
+//             },
+//           });
+  
+//           const mailOptions = {
+//             from: "priyamannur14608@gmail.com",
+//             to: email,
+//             subject: "Password Reset",
+//             text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n`
+//               + `Please click on the following link, or paste this into your browser to complete the process:\n\n`
+//               + `http://${req.headers.host}/reset/${token}\n\n`
+//               + `If you did not request this, please ignore this email and your password will remain unchanged.\n`
+//           };
+  
+//           transporter.sendMail(mailOptions, (error, info) => {
+//             if (error) {
+//               console.error(error);
+//               return res.status(500).json({ error: "Failed to send email" });
+//             }
+//             console.log("Email sent: " + info.response);
+//             res.json({ message: "Email sent with password reset instructions" });
+//           });
+//         })
+//         .catch((err) => {
+//           console.error(err);
+//           res.status(500).json({ error: "Internal server error" });
+//         });
+//     });
+//   });
 
 
 module.exports = router;

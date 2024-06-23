@@ -74,7 +74,7 @@ export default function UserProfie() {
       .then((result) => {
         console.log(result);
         setUser(result.user);
-        setPosts(result.post);
+        setPic(result.post);
         if (
           result.user.followers.includes(
             JSON.parse(localStorage.getItem("user"))._id
@@ -117,7 +117,7 @@ export default function UserProfie() {
             </button>
           </div>
           <div className="profile-info" style={{ display: "flex" }}>
-            <p>{posts.length} posts</p>
+            <p>{pic.length} posts</p>
             <p>{user.followers ? user.followers.length : "0"} followers</p>
             <p>{user.following ? user.following.length : "0"} following</p>
           </div>
@@ -133,7 +133,7 @@ export default function UserProfie() {
       />
       {/* Gallery */}
       <div className="gallery">
-        {posts.map((pics) => {
+        {pic.map((pics) => {
           return (
             <img
               key={pics._id}
