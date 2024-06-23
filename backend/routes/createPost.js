@@ -29,8 +29,17 @@ router.post("/createPost", requireLogin, (req, res) => {
     }).catch(err => console.log(err))
 })
 
+
+router.get("/myposts", requireLogin, (req, res) => {
+    POST.find({ postedBy: req.user._id })
+        .populate("postedBy", "_id name Photo")
+        .populate("comments.postedBy", "_id name")
+        .sort("-createdAt")
+        .then(posts => res.json(posts))
+        .catch(err => console.log(err))
+});
+
 router.get("/allposts", requireLogin, (req, res) => {
-   
     POST.find()
         .populate("postedBy", "_id name Photo")
         .populate("comments.postedBy", "_id name")
@@ -114,12 +123,35 @@ router.delete("/deletePost/:postId", requireLogin, (req, res) => {
 // to show following post
 router.get("/myfollwingpost", requireLogin, (req, res) => {
     POST.find({ postedBy: { $in: req.user.following } })
-        .populate("postedBy", "_id name")
+        .populate("postedBy", "_id name Photo")
         .populate("comments.postedBy", "_id name")
         .then(posts => {
             res.json(posts)
         })
         .catch(err => { console.log(err) })
 })
+
+
+
+
+
+// API to delete a comment
+router.delete("/deleteComment/:commentId", requireLogin, (req, res) => {
+    POST.findOneAndUpdate(
+        // Find the post that contains the comment to delete
+        { "comments._id": req.params.commentId, "comments.postedBy": req.user._id },
+        // Remove the comment from the array
+        { $pull: { comments: { _id: req.params.commentId } } },
+        { new: true }
+    )
+    .populate("comments.postedBy", "_id name")
+    .populate("postedBy", "_id name Photo")
+    .exec((err, updatedPost) => {
+        if (err || !updatedPost) {
+            return res.status(422).json({ error: "Failed to delete comment" });
+        }
+        res.json(updatedPost);
+    });
+});
 
 module.exports = router
