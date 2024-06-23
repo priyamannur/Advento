@@ -118,7 +118,7 @@ const userr = localStorage.getItem("username")
       <div className='details'>
         <div className='card-header'>
           <div className='card-pic'>
-         {/*   <img src={user.photo || "https://cdn-icons-png.flaticon.com/128/3177/3177440.png"} alt="" /> */}
+          <img src={user.photo || "https://cdn-icons-png.flaticon.com/128/3177/3177440.png"} alt="" /> 
           </div>
 
           <h5>{user.name}</h5>
@@ -132,8 +132,8 @@ const userr = localStorage.getItem("username")
           ></textarea>
 
 
-
+</div>
       </div>
-    </div>
+      </div>
   );
 }
