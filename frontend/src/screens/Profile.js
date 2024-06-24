@@ -1,35 +1,31 @@
-
 import React, { useEffect, useState } from "react";
 import PostDetail from "../components/PostDetail";
 import "../css/Profile.css";
 import ProfilePic from "../components/ProfilePic";
 
-export default function Profie() {
-  var picLink = "https://cdn-icons-png.flaticon.com/128/3177/3177440.png"
+export default function Profile() {
+  const picLink = "https://cdn-icons-png.flaticon.com/128/3177/3177440.png";
   const [pic, setPic] = useState([]);
-  const [show, setShow] = useState(false)
-  const [posts, setPosts] = useState([]);
-  const [user, setUser] = useState("")
-  const [changePic, setChangePic] = useState(false)
+  const [show, setShow] = useState(false);
+  const [currentPost, setCurrentPost] = useState(null);
+  const [user, setUser] = useState("");
+  const [changePic, setChangePic] = useState(false);
 
-
-  const toggleDetails = (posts) => {
-    if (show) {
-      setShow(false);
-    } else {
-      setShow(true);
-      setPosts(posts);
-    }
+  const toggleDetails = (post) => {
+    setCurrentPost(post);
+    setShow(!show);
   };
 
-  const changeprofile = () => {
-    if (changePic) {
-      setChangePic(false)
-    } else {
-      setChangePic(true)
-    }
-  }
+  const changeProfile = () => {
+    setChangePic(!changePic);
+  };
 
+  const updatePostDetails = (updatedPost) => {
+    setPic((prevPosts) =>
+      prevPosts.map((post) => (post._id === updatedPost._id ? updatedPost : post))
+    );
+    setCurrentPost(updatedPost);
+  };
 
   useEffect(() => {
     fetch(`/user/${JSON.parse(localStorage.getItem("user"))._id}`, {
@@ -39,10 +35,8 @@ export default function Profie() {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result)
         setPic(result.post);
-        setUser(result.user)
-        console.log(pic);
+        setUser(result.user);
       });
   }, []);
 
@@ -53,7 +47,7 @@ export default function Profie() {
         {/* profile-pic */}
         <div className="profile-pic">
           <img
-            onClick={changeprofile}
+            onClick={changeProfile}
             src={user.Photo ? user.Photo : picLink}
             alt=""
           />
@@ -71,28 +65,26 @@ export default function Profie() {
       <hr
         style={{
           width: "90%",
-
           opacity: "0.8",
           margin: "25px auto",
         }}
       />
       {/* Gallery */}
       <div className="gallery">
-        {pic.map((pics) => {
-          return <img key={pics._id} src={pics.photo}
-            onClick={() => {
-              toggleDetails(pics)
-            }}
-            className="item"></img>;
-        })}
+        {pic.map((pics) => (
+          <img
+            key={pics._id}
+            src={pics.photo}
+            onClick={() => toggleDetails(pics)}
+            className="item"
+            alt=""
+          />
+        ))}
       </div>
-      {show &&
-        <PostDetail item={posts} toggleDetails={toggleDetails} />
-      }
-      {
-        changePic &&
-        <ProfilePic changeprofile={changeprofile} />
-      }
+      {show && currentPost && (
+        <PostDetail item={currentPost} toggleDetails={toggleDetails} updatePostDetails={updatePostDetails} />
+      )}
+      {changePic && <ProfilePic changeProfile={changeProfile} />}
     </div>
   );
 }

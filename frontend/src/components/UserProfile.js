@@ -1,27 +1,27 @@
-
 import React, { useEffect, useState } from "react";
 import "../css/Profile.css";
 import { useParams } from "react-router-dom";
-
 import PostDetail from './PostDetail';
-export default function UserProfie() {
+
+export default function UserProfile() {
   var picLink = "https://cdn-icons-png.flaticon.com/128/3177/3177440.png";
   const { userid } = useParams();
   const [isFollow, setIsFollow] = useState(false);
   const [user, setUser] = useState("");
   const [posts, setPosts] = useState([]);
-  const [pic,setPic]=useState([])
-  const [show,setShow]=useState(false);
+  const [currentPost, setCurrentPost] = useState(null);
+  const [show, setShow] = useState(false);
 
+  const toggleDetails = (post) => {
+    setCurrentPost(post);
+    setShow(!show);
+  };
 
-    
-  const toggleDetails = (posts) => {
-    if (show) {
-      setShow(false);
-    } else {
-      setShow(true);
-      setPosts(posts);
-    }
+  const updatePostDetails = (updatedPost) => {
+    setPosts((prevPosts) => 
+      prevPosts.map((post) => (post._id === updatedPost._id ? updatedPost : post))
+    );
+    setCurrentPost(updatedPost);
   };
 
   // to follow user
@@ -55,9 +55,7 @@ export default function UserProfie() {
         followId: userId,
       }),
     })
-      .then((res) => {
-        res.json();
-      })
+      .then((res) => res.json())
       .then((data) => {
         console.log(data);
         setIsFollow(false);
@@ -74,7 +72,7 @@ export default function UserProfie() {
       .then((result) => {
         console.log(result);
         setUser(result.user);
-        setPic(result.post);
+        setPosts(result.post);
         if (
           result.user.followers.includes(
             JSON.parse(localStorage.getItem("user"))._id
@@ -83,7 +81,7 @@ export default function UserProfie() {
           setIsFollow(true);
         }
       });
-  }, [isFollow]);
+  }, [isFollow, userid]);
 
   return (
     <div className="profile">
@@ -94,7 +92,7 @@ export default function UserProfie() {
           <img src={user.Photo ? user.Photo : picLink} alt="" />
         </div>
         {/* profile-data */}
-        <div className="pofile-data">
+        <div className="profile-data">
           <div
             style={{
               display: "flex",
@@ -117,7 +115,7 @@ export default function UserProfie() {
             </button>
           </div>
           <div className="profile-info" style={{ display: "flex" }}>
-            <p>{pic.length} posts</p>
+            <p>{posts.length} posts</p>
             <p>{user.followers ? user.followers.length : "0"} followers</p>
             <p>{user.following ? user.following.length : "0"} following</p>
           </div>
@@ -126,29 +124,25 @@ export default function UserProfie() {
       <hr
         style={{
           width: "90%",
-
           opacity: "0.8",
           margin: "25px auto",
         }}
       />
       {/* Gallery */}
       <div className="gallery">
-        {pic.map((pics) => {
-          return (
-            <img
-              key={pics._id}
-              src={pics.photo}
-             onClick={() => {
-                  toggleDetails(pics)
-            }}
-              className="item"
-            ></img>
-          );
-        })}
+        {posts.map((post) => (
+          <img
+            key={post._id}
+            src={post.photo}
+            onClick={() => toggleDetails(post)}
+            className="item"
+            alt="user post"
+          />
+        ))}
       </div>
-      {show &&
-        <PostDetail item={posts} toggleDetails={toggleDetails} />
-      } 
+      {show && currentPost && (
+        <PostDetail item={currentPost} toggleDetails={toggleDetails} updatePostDetails={updatePostDetails} />
+      )}
     </div>
   );
 }
