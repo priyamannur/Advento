@@ -6,9 +6,9 @@ This website is specially curated for the travellers. Like other social media pl
 ![Ed our chat bot](./adventoimages/login.png)
 ## Home page
 ![Ed our chat bot](./adventoimages/home.png)
-## Post page
-![Ed our chat bot](./adventoimages/menu.png)
 ## Menu bar
+![Ed our chat bot](./adventoimages/menu.png)
+## Post page
 ![Ed our chat bot](./adventoimages/post.png)
 ## Ed chat page
 ![Ed our chat bot](./adventoimages/edchat.png)
