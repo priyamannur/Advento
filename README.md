@@ -1,5 +1,5 @@
 # Advento WebApp
-![./adventoimages/edchat.png]
+![Ed our chat bot](./adventoimages/edchat.png)
 
 
 
