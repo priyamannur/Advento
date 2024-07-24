@@ -19,7 +19,7 @@ export default function SignIn() {
 
    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-    const postData = ()=>{
+    const postData = ()=>{    
         //checking email
         if(!emailRegex.test(email)){
            notifyA("Invalid email")
@@ -85,7 +85,12 @@ export default function SignIn() {
        <Link to="/signup">
        <span style={{color:"blue",cursor:"pointer"}}>Sign Up</span>
        </Link>
-</div>
+       <div>
+       <Link to="/Forgotpass">
+       <span style={{color:"blue",cursor:"pointer", fontSize:"15px"}}>Forgot Password</span>
+       </Link>
+       </div>
+    </div>
         </div>
     </div>
 );

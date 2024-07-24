@@ -30,10 +30,7 @@ router.post("/", async (req,res)=>{
               const chatSession = model.startChat({
                 generationConfig,
                 safetySettings,
-                history: [
-                  { role: "user", parts: [{ text: "hi" }] },
-                  { role: "model", parts: [{ text: "Hi there!  I'm Ed, your friendly travel assistant..." }] },
-                ],
+               
               });
               chatSession;
               
