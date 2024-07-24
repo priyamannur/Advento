@@ -1,10 +1,16 @@
 # Advento WebApp
 This website is specially curated for the travellers. Like other social media platform this website is also very user friendly but also helpful. It comes with sdditional features like AI chat bot and map reviews that makes your experience more personalized.
+## Signup page
 ![Ed our chat bot](./adventoimages/signup.png)
+## Signin page
 ![Ed our chat bot](./adventoimages/login.png)
+## Home page
 ![Ed our chat bot](./adventoimages/home.png)
+## Post page
 ![Ed our chat bot](./adventoimages/menu.png)
+## Menu bar
 ![Ed our chat bot](./adventoimages/post.png)
+## Ed chat page
 ![Ed our chat bot](./adventoimages/edchat.png)
 
 
