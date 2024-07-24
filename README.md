@@ -12,6 +12,8 @@ This website is specially curated for the travellers. Like other social media pl
 ![Ed our chat bot](./adventoimages/post.png)
 ## Ed chat page
 ![Ed our chat bot](./adventoimages/edchat.png)
+## Map review Page
+![Map Review Page](./adventoimages/mapreview.png)
 
 
 
