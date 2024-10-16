@@ -17,7 +17,7 @@ module.exports = (req,res,next)=>{
         "" )
         jwt.verify(token,Jwt_secret,(err,payload)=>{
             if(err){
-                return res.status(401).json({error:"You must have logged i111111n"})
+                return res.status(401).json({error:"You must have logged in"})
             }
             const{_id}=payload
             USER.findById(_id).then(userData=>{
